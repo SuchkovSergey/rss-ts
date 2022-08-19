@@ -1,15 +1,16 @@
 import watchState from './watchers';
 import { checkForNewPosts, setListeners } from './utils';
 import { initializeI18next } from './languages/utils';
-import { STATE_TYPES } from './constants';
+import { FORM_CONDITIONS } from './constants';
+import { State } from './types';
 
 const app = () => {
-    const state = {
+    const state: State = {
         feeds: [],
         posts: [],
         currentLang: 'English',
         form: {
-            processState: STATE_TYPES.FINISHED,
+            processState: FORM_CONDITIONS.FINISHED,
             fields: {
                 url: '',
             },

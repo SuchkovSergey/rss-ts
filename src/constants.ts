@@ -1,4 +1,4 @@
-export const STATE_TYPES = {
+export const FORM_CONDITIONS = {
     FILLING: 'filling',
     ADDING: 'adding',
     FINISHED: 'finished',

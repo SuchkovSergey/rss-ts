@@ -1,10 +1,10 @@
 import i18next from 'i18next';
-// eslint-disable-next-line import/extensions
 import resources from './locales';
 import { getErrorsText } from '../utils';
 import { LANGUAGES } from '../constants';
+import { State } from '../types';
 
-export const updateTexts = (state) => {
+export const updateTexts = (state: State) => {
     const jumbotronHeader = document.querySelector('.jumbotron__header');
     const jumbotronSubHeader = document.querySelector('.jumbotron__sub-header');
     const jumbotronSubmit = document.querySelector('.jumbotron__submit');
@@ -23,7 +23,7 @@ export const updateTexts = (state) => {
     }
 };
 
-const changeLanguagesInit = (state) => {
+const changeLanguagesInit = (state: State) => {
     Object.keys(LANGUAGES).forEach((language) => {
         const currentButton = document.getElementById(language);
         currentButton.addEventListener('click', () => {
@@ -48,7 +48,7 @@ const dropButtonInit = () => {
     });
 };
 
-export const initializeI18next = (state) => {
+export const initializeI18next = (state: State) => {
     dropButtonInit();
     i18next.init({
         lng: 'en',

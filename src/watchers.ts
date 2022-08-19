@@ -1,8 +1,9 @@
 import { watch } from 'melanke-watchjs';
 import { getErrorsText } from './utils';
-import { STATE_TYPES } from './constants';
+import { FORM_CONDITIONS } from './constants';
+import { State, PostObject } from './types';
 
-const renderPosts = (currentPosts) => {
+const renderPosts = (currentPosts: Array<PostObject>) => {
     const postsDiv = document.querySelector('.main-body__posts-container');
     postsDiv.innerHTML = '';
     currentPosts.forEach((post) => {
@@ -18,13 +19,13 @@ const renderPosts = (currentPosts) => {
     });
 };
 
-const removeFeed = (state, feedIdToDelete) => () => {
+const removeFeed = (state: State, feedIdToDelete: string) => () => {
     const { feeds, posts } = state;
     state.feeds = feeds.filter(({ id }) => id !== feedIdToDelete);
     state.posts = posts.filter(({ feedId }) => feedId !== feedIdToDelete);
 };
 
-const updateFeeds = (state) => {
+const updateFeeds = (state: State) => {
     const feedsElement = document.querySelector('.main-body__feeds');
     feedsElement.innerHTML = '';
     state.feeds.forEach((feed) => {
@@ -66,7 +67,7 @@ const updateFeeds = (state) => {
 
 // The main logic of "View" level
 // Tracking changes of state, makes changes to the DOM
-const watchState = (state) => {
+const watchState = (state: State) => {
     const input = <HTMLInputElement>document.querySelector('.jumbotron__input');
     const form = document.querySelector('form');
     const submitButton = <HTMLInputElement>form.querySelector('.jumbotron__submit');
@@ -79,13 +80,13 @@ const watchState = (state) => {
     watch(state.form, 'processState', () => {
         const { processState } = state.form;
         switch (processState) {
-        case STATE_TYPES.FILLING:
+        case FORM_CONDITIONS.FILLING:
             submitButton.disabled = false;
             break;
-        case STATE_TYPES.ADDING:
+        case FORM_CONDITIONS.ADDING:
             submitButton.disabled = true;
             break;
-        case STATE_TYPES.FINISHED:
+        case FORM_CONDITIONS.FINISHED:
             input.value = '';
             submitButton.disabled = true;
             break;
